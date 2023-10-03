@@ -6,6 +6,7 @@ import { CircleDollarSign, File, LayoutDashboard, ListChecks } from "lucide-reac
 import { IconBadge } from "@/components/icon-badge";
 import TitleForm from "./_components/title-form";
 import { DescriptionForm } from "./_components/description-form";
+import { ImageForm } from "./_components/image-form";
 
 type CourseIdPageProps = {
   params: {
@@ -89,7 +90,7 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
             </div>
             <TitleForm initialData={course} courseId={course.id} />
             <DescriptionForm initialData={course} courseId={course.id} />
-            {/* <ImageForm initialData={course} courseId={course.id} /> */}
+            <ImageForm initialData={course} courseId={course.id} />
             {/* <CategoryForm
               initialData={course}
               courseId={course.id}

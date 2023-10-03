@@ -70,7 +70,6 @@ body {
     --ring: 212.7 26.8% 83.9%;
   }
 }
-
 @layer base {
   * {
     @apply border-border;
@@ -79,3 +78,9 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.ql-container {
+  font-size: 16px !important;
+}
+
+/* @import "~@uploadthing/react/styles.css"; */
