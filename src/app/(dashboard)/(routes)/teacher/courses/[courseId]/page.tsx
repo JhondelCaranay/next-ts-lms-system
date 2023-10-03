@@ -5,6 +5,7 @@ import Actions from "./_components/actions";
 import { CircleDollarSign, File, LayoutDashboard, ListChecks } from "lucide-react";
 import { IconBadge } from "@/components/icon-badge";
 import TitleForm from "./_components/title-form";
+import { DescriptionForm } from "./_components/description-form";
 
 type CourseIdPageProps = {
   params: {
@@ -87,7 +88,7 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
               <h2 className="text-xl">Customize your course</h2>
             </div>
             <TitleForm initialData={course} courseId={course.id} />
-            {/* <DescriptionForm initialData={course} courseId={course.id} /> */}
+            <DescriptionForm initialData={course} courseId={course.id} />
             {/* <ImageForm initialData={course} courseId={course.id} /> */}
             {/* <CategoryForm
               initialData={course}
