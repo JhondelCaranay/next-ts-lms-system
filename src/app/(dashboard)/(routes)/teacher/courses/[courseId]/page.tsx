@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import Actions from "./_components/actions";
 import { CircleDollarSign, File, LayoutDashboard, ListChecks } from "lucide-react";
 import { IconBadge } from "@/components/icon-badge";
+import TitleForm from "./_components/title-form";
 
 type CourseIdPageProps = {
   params: {
@@ -79,12 +80,13 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
+          {/* left  */}
           <div>
             <div className="flex items-center gap-x-2">
               <IconBadge icon={LayoutDashboard} />
               <h2 className="text-xl">Customize your course</h2>
             </div>
-            {/* <TitleForm initialData={course} courseId={course.id} /> */}
+            <TitleForm initialData={course} courseId={course.id} />
             {/* <DescriptionForm initialData={course} courseId={course.id} /> */}
             {/* <ImageForm initialData={course} courseId={course.id} /> */}
             {/* <CategoryForm
@@ -96,6 +98,7 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
               }))}
             /> */}
           </div>
+          {/* right */}
           <div className="space-y-6">
             <div>
               <div className="flex items-center gap-x-2">
