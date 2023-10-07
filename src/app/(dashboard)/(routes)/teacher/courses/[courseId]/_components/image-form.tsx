@@ -12,10 +12,10 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { FileUpload } from "@/components/file-upload";
 
-interface ImageFormProps {
+type ImageFormProps = {
   initialData: Course;
   courseId: string;
-}
+};
 
 const formSchema = z.object({
   imageUrl: z.string().min(1, {

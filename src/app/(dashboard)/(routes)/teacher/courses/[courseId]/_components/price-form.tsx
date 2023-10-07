@@ -15,10 +15,11 @@ import { Course } from "@prisma/client";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { formatPrice } from "@/lib/format";
-interface PriceFormProps {
+
+type PriceFormProps = {
   initialData: Course;
   courseId: string;
-}
+};
 
 const formSchema = z.object({
   price: z.coerce.number(),

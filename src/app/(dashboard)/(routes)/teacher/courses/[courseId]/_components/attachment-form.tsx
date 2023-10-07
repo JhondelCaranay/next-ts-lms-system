@@ -11,10 +11,10 @@ import { Attachment, Course } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 import { FileUpload } from "@/components/file-upload";
 
-interface AttachmentFormProps {
+type AttachmentFormProps = {
   initialData: Course & { attachments: Attachment[] };
   courseId: string;
-}
+};
 
 const formSchema = z.object({
   url: z.string().min(1),

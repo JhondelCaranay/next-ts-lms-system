@@ -13,10 +13,11 @@ import { Pencil } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Course } from "@prisma/client";
 import { Textarea } from "@/components/ui/textarea";
-interface DescriptionFormProps {
+
+type DescriptionFormProps = {
   initialData: Course;
   courseId: string;
-}
+};
 
 const formSchema = z.object({
   description: z.string().min(1, {

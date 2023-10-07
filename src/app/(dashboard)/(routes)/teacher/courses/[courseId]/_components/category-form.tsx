@@ -15,11 +15,11 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ComboBox } from "@/components/ui/combobox";
 
-interface CategoryFormProps {
+type CategoryFormProps = {
   initialData: Course;
   courseId: string;
   options: { label: string; value: string }[];
-}
+};
 
 const formSchema = z.object({
   categoryId: z.string().min(1),
