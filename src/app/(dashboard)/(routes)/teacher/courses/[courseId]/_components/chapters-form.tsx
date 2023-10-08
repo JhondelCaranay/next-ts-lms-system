@@ -14,6 +14,7 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "@/component
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
+import { ChaptersList } from "./chapters-list";
 
 type ChaptersFormProps = {
   initialData: Course & { chapters: Chapter[] };
@@ -124,7 +125,7 @@ export const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
           className={cn("text-sm mt-2", !initialData.chapters.length && "text-slate-500 italic")}
         >
           {!initialData.chapters.length && "No chapters"}
-          {/* <ChaptersList onEdit={onEdit} onReorder={onReorder} items={initialData.chapters || []} /> */}
+          <ChaptersList onEdit={onEdit} onReorder={onReorder} items={initialData.chapters || []} />
         </div>
       )}
       {!isCreating && (
