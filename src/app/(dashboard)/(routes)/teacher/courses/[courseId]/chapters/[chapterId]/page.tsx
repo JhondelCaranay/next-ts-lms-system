@@ -7,6 +7,7 @@ import { IconBadge } from "@/components/icon-badge";
 import { prisma } from "@/lib/prisma";
 import { Banner } from "@/components/banner";
 import { ChapterTitleForm } from "./_components/chapter-title-form";
+import { ChapterDescriptionForm } from "./_components/chapter-description-form";
 
 const ChapterIdPage = async ({ params }: { params: { courseId: string; chapterId: string } }) => {
   const { userId } = auth();
@@ -83,12 +84,11 @@ const ChapterIdPage = async ({ params }: { params: { courseId: string; chapterId
                 courseId={params.courseId}
                 chapterId={params.chapterId}
               />
-              <div>ChapterDescriptionForm</div>
-              {/* <ChapterDescriptionForm
+              <ChapterDescriptionForm
                 initialData={chapter}
                 courseId={params.courseId}
                 chapterId={params.chapterId}
-              /> */}
+              />
             </div>
             <div>
               <div className="flex items-center gap-x-2">
