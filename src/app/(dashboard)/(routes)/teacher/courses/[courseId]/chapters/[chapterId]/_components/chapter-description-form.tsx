@@ -31,9 +31,9 @@ export const ChapterDescriptionForm = ({
   courseId,
   chapterId,
 }: ChapterDescriptionFormProps) => {
-  console.log("====================================");
-  console.log("ChapterDescriptionForm", initialData.description);
-  console.log("====================================");
+  // console.log("====================================");
+  // console.log("ChapterDescriptionForm", initialData.description);
+  // console.log("====================================");
 
   const [isEditing, setIsEditing] = useState(false);
 
