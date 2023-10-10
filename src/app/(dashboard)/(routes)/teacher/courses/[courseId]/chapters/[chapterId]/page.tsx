@@ -8,6 +8,7 @@ import { prisma } from "@/lib/prisma";
 import { Banner } from "@/components/banner";
 import { ChapterTitleForm } from "./_components/chapter-title-form";
 import { ChapterDescriptionForm } from "./_components/chapter-description-form";
+import { ChapterAccessForm } from "./_components/chapter-access-form";
 
 const ChapterIdPage = async ({ params }: { params: { courseId: string; chapterId: string } }) => {
   const { userId } = auth();
@@ -95,12 +96,11 @@ const ChapterIdPage = async ({ params }: { params: { courseId: string; chapterId
                 <IconBadge icon={Eye} />
                 <h2 className="text-xl">Access Settings</h2>
               </div>
-              {/* <ChapterAccessForm
+              <ChapterAccessForm
                 initialData={chapter}
                 courseId={params.courseId}
                 chapterId={params.chapterId}
-              /> */}
-              <div>ChapterAccessForm</div>
+              />
             </div>
           </div>
           <div>
