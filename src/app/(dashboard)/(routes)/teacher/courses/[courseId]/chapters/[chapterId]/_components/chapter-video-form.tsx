@@ -12,6 +12,10 @@ import { Chapter, MuxData } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 import { FileUpload } from "@/components/file-upload";
 
+import dynamic from "next/dynamic";
+
+const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
+
 interface ChapterVideoFormProps {
   initialData: Chapter & { muxData?: MuxData | null };
   courseId: string;
@@ -67,7 +71,22 @@ export const ChapterVideoForm = ({ initialData, courseId, chapterId }: ChapterVi
           </div>
         ) : (
           <div className="relative aspect-video mt-2">
-            <MuxPlayer playbackId={initialData?.muxData?.playbackId || ""} />
+            {/* <MuxPlayer playbackId={initialData?.muxData?.playbackId || ""} /> */}
+
+            {/* // Lazy load the YouTube player */}
+            <ReactPlayer
+              url={initialData.videoUrl}
+              controls={true}
+              width="100%"
+              height="100%"
+              className="absolute top-0 left-0"
+              style={{ borderRadius: "0.5rem" }}
+            />
+
+            {/* <video controls width="640" height="360">
+              <source src={initialData.videoUrl} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video> */}
           </div>
         ))}
       {isEditing && (

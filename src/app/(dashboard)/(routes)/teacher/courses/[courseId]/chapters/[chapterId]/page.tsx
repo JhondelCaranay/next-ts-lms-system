@@ -10,6 +10,7 @@ import { ChapterTitleForm } from "./_components/chapter-title-form";
 import { ChapterDescriptionForm } from "./_components/chapter-description-form";
 import { ChapterAccessForm } from "./_components/chapter-access-form";
 import { ChapterVideoForm } from "./_components/chapter-video-form";
+import { ChapterActions } from "./_components/chapter-actions";
 
 const ChapterIdPage = async ({ params }: { params: { courseId: string; chapterId: string } }) => {
   const { userId } = auth();
@@ -32,13 +33,19 @@ const ChapterIdPage = async ({ params }: { params: { courseId: string; chapterId
     return redirect("/");
   }
 
+  // get the required fields
   const requiredFields = [chapter.title, chapter.description, chapter.videoUrl];
 
+  // get the total number of fields
   const totalFields = requiredFields.length;
+
+  // get the number of completed fields
   const completedFields = requiredFields.filter(Boolean).length;
 
+  // get the completion text ex. (2/3)
   const completionText = `(${completedFields}/${totalFields})`;
 
+  // check if all required fields are completed
   const isComplete = requiredFields.every(Boolean);
 
   return (
@@ -64,13 +71,12 @@ const ChapterIdPage = async ({ params }: { params: { courseId: string; chapterId
                 <h1 className="text-2xl font-medium">Chapter Creation</h1>
                 <span className="text-sm text-slate-700">Complete all fields {completionText}</span>
               </div>
-              <div>Actions</div>
-              {/* <ChapterActions
+              <ChapterActions
                 disabled={!isComplete}
                 courseId={params.courseId}
                 chapterId={params.chapterId}
                 isPublished={chapter.isPublished}
-              /> */}
+              />
             </div>
           </div>
         </div>
