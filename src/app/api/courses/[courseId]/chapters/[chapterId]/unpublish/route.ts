@@ -9,10 +9,12 @@ export async function PATCH(
   try {
     const { userId } = auth();
 
+    // check if user is not logged in and return unauthorized
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
+    // check if user owns the course
     const ownCourse = await prisma.course.findUnique({
       where: {
         id: params.courseId,
@@ -20,10 +22,12 @@ export async function PATCH(
       },
     });
 
+    // if not, return unauthorized
     if (!ownCourse) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
+    // check if chapter exists then update it to be unpublished
     const unpublishedChapter = await prisma.chapter.update({
       where: {
         id: params.chapterId,
@@ -34,6 +38,9 @@ export async function PATCH(
       },
     });
 
+    // INFO: course cannot be publish if atleast one chapter is not published
+
+    // check if course has any published chapters
     const publishedChaptersInCourse = await prisma.chapter.findMany({
       where: {
         courseId: params.courseId,
@@ -41,6 +48,7 @@ export async function PATCH(
       },
     });
 
+    // if there are no published chapters in the course, set course isPublished to false
     if (!publishedChaptersInCourse.length) {
       await prisma.course.update({
         where: {

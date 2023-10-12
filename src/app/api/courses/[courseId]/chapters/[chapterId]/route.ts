@@ -12,10 +12,12 @@ export async function DELETE(
   try {
     const { userId } = auth();
 
+    // check if user is not logged in and return unauthorized
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
+    // check if user owns the course
     const ownCourse = await prisma.course.findUnique({
       where: {
         id: params.courseId,
@@ -23,10 +25,12 @@ export async function DELETE(
       },
     });
 
+    // if not, return unauthorized
     if (!ownCourse) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
+    // check if chapter exists
     const chapter = await prisma.chapter.findUnique({
       where: {
         id: params.chapterId,
@@ -34,19 +38,24 @@ export async function DELETE(
       },
     });
 
+    // if not, return not found
     if (!chapter) {
       return new NextResponse("Not Found", { status: 404 });
     }
 
     if (chapter.videoUrl) {
+      // check if mux data exists
       const existingMuxData = await prisma.muxData.findFirst({
         where: {
           chapterId: params.chapterId,
         },
       });
 
+      // if exists, delete asset and mux data
       if (existingMuxData) {
+        // delete asset
         await Video.Assets.del(existingMuxData.assetId);
+        // delete mux data from database
         await prisma.muxData.delete({
           where: {
             id: existingMuxData.id,
@@ -55,12 +64,16 @@ export async function DELETE(
       }
     }
 
+    // delete chapter
     const deletedChapter = await prisma.chapter.delete({
       where: {
         id: params.chapterId,
       },
     });
 
+    // INFO: course cannot be publish if atleast one chapter is not published
+
+    // check if there are any published chapters in the course
     const publishedChaptersInCourse = await prisma.chapter.findMany({
       where: {
         courseId: params.courseId,
@@ -68,6 +81,7 @@ export async function DELETE(
       },
     });
 
+    // if there are no published chapters in the course, set course isPublished to false
     if (!publishedChaptersInCourse.length) {
       await prisma.course.update({
         where: {

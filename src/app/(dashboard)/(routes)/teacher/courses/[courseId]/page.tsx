@@ -1,7 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-import Actions from "./_components/actions";
 import { CircleDollarSign, File, LayoutDashboard, ListChecks } from "lucide-react";
 import { IconBadge } from "@/components/icon-badge";
 import TitleForm from "./_components/title-form";
@@ -11,6 +10,8 @@ import { CategoryForm } from "./_components/category-form";
 import { PriceForm } from "./_components/price-form";
 import { AttachmentForm } from "./_components/attachment-form";
 import { ChaptersForm } from "./_components/chapters-form";
+import { Banner } from "@/components/banner";
+import { Actions } from "./_components/actions";
 
 type CourseIdPageProps = {
   params: {
@@ -72,6 +73,9 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
 
   return (
     <>
+      {!course.isPublished && (
+        <Banner label="This course is unpublished. It will not be visible to the students." />
+      )}
       <div className="p-6">
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-y-2">
@@ -79,9 +83,9 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
             <span className="text-sm text-slate-700">Complete all fields {completionText}</span>
           </div>
           <Actions
-          // disabled={!isComplete}
-          // courseId={params.courseId}
-          // isPublished={course.isPublished}
+            disabled={!isComplete}
+            courseId={params.courseId}
+            isPublished={course.isPublished}
           />
         </div>
 
