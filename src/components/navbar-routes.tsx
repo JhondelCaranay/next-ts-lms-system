@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
 import { isTeacher } from "@/lib/teacher";
+import { SearchInput } from "./search-input";
 
 const NavbarRoutes = () => {
   const { userId } = useAuth();
@@ -17,7 +18,11 @@ const NavbarRoutes = () => {
 
   return (
     <>
-      {isSearchPage && <div className="hidden md:block">{/* <SearchInput /> */} search</div>}
+      {isSearchPage && (
+        <div className="hidden md:block">
+          <SearchInput />
+        </div>
+      )}
       <div className="flex gap-x-2 ml-auto">
         {isTeacherPage || isCoursePage ? (
           <Link href="/">

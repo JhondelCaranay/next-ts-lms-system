@@ -5,11 +5,11 @@ import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { Input } from "./ui/input";
+import { useDebounce } from "@/hooks/use-debounce";
 
 export const SearchInput = () => {
   const [value, setValue] = useState("");
-  //   const debouncedValue = useDebounce(value);
-  const debouncedValue = "awdwad";
+  const debouncedValue = useDebounce(value);
 
   const searchParams = useSearchParams();
   const router = useRouter();
