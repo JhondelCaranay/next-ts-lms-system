@@ -8,7 +8,7 @@ type CourseWithProgressWithCategory = Course & {
   progress: number | null;
 };
 
-type GetCourses = {
+type GetCoursesProps = {
   userId: string;
   title?: string;
   categoryId?: string;
@@ -18,8 +18,9 @@ export const getCourses = async ({
   userId,
   title,
   categoryId,
-}: GetCourses): Promise<CourseWithProgressWithCategory[]> => {
+}: GetCoursesProps): Promise<CourseWithProgressWithCategory[]> => {
   try {
+    // get all published courses with the given title and category id
     const courses = await prisma.course.findMany({
       where: {
         isPublished: true,
@@ -29,7 +30,9 @@ export const getCourses = async ({
         categoryId,
       },
       include: {
+        // get the category of the course
         category: true,
+        // get all ids of published chapters
         chapters: {
           where: {
             isPublished: true,
@@ -38,6 +41,7 @@ export const getCourses = async ({
             id: true,
           },
         },
+        // get all purchases of the course for the user
         purchases: {
           where: {
             userId,
@@ -49,8 +53,10 @@ export const getCourses = async ({
       },
     });
 
+    // get the progress of the user for each course
     const coursesWithProgress: CourseWithProgressWithCategory[] = await Promise.all(
       courses.map(async (course) => {
+        // if the user has not purchased the course, return the course without progress
         if (course.purchases.length === 0) {
           return {
             ...course,
@@ -58,8 +64,10 @@ export const getCourses = async ({
           };
         }
 
+        // get the progress of the user for the course
         const progressPercentage = await getProgress(userId, course.id);
 
+        // return the course with the progress
         return {
           ...course,
           progress: progressPercentage,
